@@ -1,0 +1,89 @@
+
+<%- include("partials/nav.ejs") %>
+<body>
+
+    <% if (noResults) { %>
+        <div class="flex justify-center">
+            <h1 class=" text-xl mt-11 ml-4 font-semibold relative top-36 md:top-16 lg:top-24 lg:ml-14 xl:ml-14 xl:top-20">This location is not avaliable </h1>
+        </div>
+    <% } else { %>
+        <h1 class=" text-xl mt-11 ml-4 font-semibold relative top-36 md:top-16 lg:top-24 lg:ml-14 xl:ml-14 xl:top-20">Here is the searched result <i class="fa-solid fa-chevron-right text-sm "></i></h1>
+    <% } %>
+    <div class="main grid xs:grid-cols-2 sm:grid-cols-3  lg:grid-cols-4 md:grid-cols-4 xl:grid-cols-6 grid-cols-2 w-full lg:p-10 text-center items-center relative top-36 md:top-16 lg:top-11 xl:top-11 justify-items-center">
+        <% result.forEach(data => { %>
+        <div class="card w-full md:p-5  xl:p-5 p-4 relative text-left">
+
+       
+
+            <% if(user){ %>
+                    <div class="icons flex w-full left-0 xl:-left-4 gap-5 absolute items-center justify-center text-center">
+                <a href="<%=data._id.toString() %>" class="bg-gray-300 rounded-2xl p-1 text-xs font-bold">Guest Favourite</a>
+                
+                <button class="fav-btn" data-id="<%= data._id.toString() %>">
+                    <% let l;  %>
+                    <% fav.forEach(el => { %>
+                        <% l = el.originalId.toString() === data._id.toString() %>
+                     <% }) %>
+                        <svg class="heart-icon m-1 hover:scale-125" viewBox="0 0 32 32" width="24" height="24" fill="<%= l ? 'red': 'rgba(0,0,0,0.5)' %>" stroke="white" stroke-width="2">
+                           
+                            
+                        <path d="M16 28.667C23.167 23.782 30.333 17.783 30.333 10.558c0-1.85-.699-3.698-2.099-5.109-1.4-1.41-3.233-2.116-5.068-2.116-1.834 0-3.668.706-5.067 2.116L16 7.566l-2.099-2.117c-1.399-1.41-3.233-2.116-5.068-2.116-1.834 0-3.668.706-5.067 2.116C2.267 6.86 1.567 8.709 1.567 10.558c0 7.224 7.167 13.224 14.433 18.109z"/>
+                    </svg>
+             
+                </button>
+
+            </div>
+                   
+            <% } %>
+
+
+            <a href="/view/<%=data._id.toString()%>">
+                <img class="rounded-2xl w-44 h-36 md:h-44  lg:h-44  xl:h-44 object-cover" src="<%= data.image.url %>" alt="">
+            </a>
+
+            <p class="text-sm">Villa in <%= data.location %></p>
+            <small class="flex text-gray-600"> $<%=data.price %> per night <span><i class="fa-solid fa-star-half-stroke text-yellow-400"></i><%= (Math.random()* (5 - 1)+ 1).toFixed(2) %></span></small>
+        </div>
+            
+       <% }) %>
+
+       
+    </div>
+    <%- include("partials/lowerNav.ejs") %>
+
+
+    
+
+
+        
+
+        <div class="absolute left-0 bottom-0 w-full">
+                <%-include("partials/ResultFooter.ejs")%>
+        </div>
+
+
+
+
+        <script>
+            document.querySelectorAll(".fav-btn").forEach(btn => {
+    btn.addEventListener("click", async (e) => {
+        e.preventDefault();
+        const id = btn.dataset.id;
+
+
+        let res = await fetch(`/favorites/${id}`, { method: "POST" });
+        let data = await res.json();
+
+        // Button ke andar ke SVG ko pick karo
+        const heart = btn.querySelector(".heart-icon");
+
+        if (data.action.toLowerCase() === "added") {
+            heart.style.fill = "red";
+        } else {
+            heart.style.fill = "rgba(0,0,0,0.5)";
+        }
+    });
+});
+        </script>
+</body>
+</html>

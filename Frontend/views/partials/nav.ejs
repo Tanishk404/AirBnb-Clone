@@ -1,0 +1,298 @@
+<%- include("./header.ejs") %>
+
+<body class="">
+    <nav class=" sm:hidden h-auto lg:flex hidden xl:flex w-full items-center justify-between p-5 pr-11 pl-11 bg-[#fbfbfb] shadow-md md:fixed xl:fixed lg:fixed top-0 left-0 z-10 ">
+    <a href="/">
+          <svg width="102" height="32" viewBox="0 0 3490 1080" style="display: block;"><path fill="#ff385c" d="M1494.71 456.953C1458.28 412.178 1408.46 389.892 1349.68 389.892C1233.51 389.892 1146.18 481.906 1146.18 605.892C1146.18 729.877 1233.51 821.892 1349.68 821.892C1408.46 821.892 1458.28 799.605 1494.71 754.83L1500.95 810.195H1589.84V401.588H1500.95L1494.71 456.953ZM1369.18 736.895C1295.33 736.895 1242.08 683.41 1242.08 605.892C1242.08 528.373 1295.33 474.888 1369.18 474.888C1443.02 474.888 1495.49 529.153 1495.49 605.892C1495.49 682.63 1443.8 736.895 1369.18 736.895ZM1656.11 810.195H1750.46V401.588H1656.11V810.195ZM948.912 666.715C875.618 506.859 795.308 344.664 713.438 184.809C698.623 155.177 670.554 98.2527 645.603 67.8412C609.736 24.1733 556.715 0.779785 502.915 0.779785C449.115 0.779785 396.094 24.1733 360.227 67.8412C335.277 98.2527 307.207 155.177 292.392 184.809C210.522 344.664 130.212 506.859 56.9187 666.715C47.5621 687.769 24.9504 737.675 16.3736 760.289C6.2373 787.581 0.779297 817.213 0.779297 846.845C0.779297 975.509 101.362 1079.22 235.473 1079.22C346.193 1079.22 434.3 1008.26 502.915 934.18C571.53 1008.26 659.638 1079.22 770.357 1079.22C904.468 1079.22 1005.83 975.509 1005.83 846.845C1005.83 817.213 999.593 787.581 989.457 760.289C980.88 737.675 958.268 687.769 948.912 666.715ZM502.915 810.195C447.555 738.455 396.094 649.56 396.094 577.819C396.094 506.079 446.776 470.209 502.915 470.209C559.055 470.209 610.516 508.419 610.516 577.819C610.516 647.22 558.275 738.455 502.915 810.195ZM770.357 998.902C688.362 998.902 618.032 941.557 555.741 872.656C619.966 792.541 690.826 679.121 690.826 577.819C690.826 458.513 598.04 389.892 502.915 389.892C407.79 389.892 315.784 458.513 315.784 577.819C315.784 679.098 386.145 792.478 450.144 872.593C387.845 941.526 317.491 998.902 235.473 998.902C146.586 998.902 81.0898 931.061 81.0898 846.845C81.0898 826.57 84.2087 807.856 91.2261 788.361C98.2436 770.426 120.855 720.52 130.212 701.025C203.505 541.17 282.256 380.534 364.126 220.679C378.941 191.047 403.891 141.921 422.605 119.307C442.877 94.3538 470.947 81.0975 502.915 81.0975C534.883 81.0975 562.953 94.3538 583.226 119.307C601.939 141.921 626.89 191.047 641.704 220.679C723.574 380.534 802.325 541.17 875.618 701.025C884.975 720.52 907.587 770.426 914.604 788.361C921.622 807.856 925.52 826.57 925.52 846.845C925.52 931.061 859.244 998.902 770.357 998.902ZM3285.71 389.892C3226.91 389.892 3175.97 413.098 3139.91 456.953V226.917H3045.56V810.195H3134.45L3140.69 754.83C3177.12 799.605 3226.94 821.892 3285.71 821.892C3401.89 821.892 3489.22 729.877 3489.22 605.892C3489.22 481.906 3401.89 389.892 3285.71 389.892ZM3266.22 736.895C3191.6 736.895 3139.91 682.63 3139.91 605.892C3139.91 529.153 3191.6 474.888 3266.22 474.888C3340.85 474.888 3393.32 528.373 3393.32 605.892C3393.32 683.41 3340.07 736.895 3266.22 736.895ZM2827.24 389.892C2766.15 389.892 2723.56 418.182 2699.37 456.953L2693.13 401.588H2604.24V810.195H2698.59V573.921C2698.59 516.217 2741.47 474.888 2800.73 474.888C2856.87 474.888 2888.84 513.097 2888.84 578.599V810.195H2983.19V566.903C2983.19 457.733 2923.15 389.892 2827.24 389.892ZM1911.86 460.072L1905.62 401.588H1816.73V810.195H1911.08V604.332C1911.08 532.592 1954.74 486.585 2027.26 486.585C2042.85 486.585 2058.44 488.144 2070.92 492.043V401.588C2059.22 396.91 2044.41 395.35 2028.04 395.35C1978.58 395.35 1936.66 421.177 1911.86 460.072ZM2353.96 389.892C2295.15 389.892 2244.21 413.098 2208.15 456.953V226.917H2113.8V810.195H2202.69L2208.93 754.83C2245.36 799.605 2295.18 821.892 2353.96 821.892C2470.13 821.892 2557.46 729.877 2557.46 605.892C2557.46 481.906 2470.13 389.892 2353.96 389.892ZM2334.46 736.895C2259.84 736.895 2208.15 682.63 2208.15 605.892C2208.15 529.153 2259.84 474.888 2334.46 474.888C2409.09 474.888 2461.56 528.373 2461.56 605.892C2461.56 683.41 2408.31 736.895 2334.46 736.895ZM1703.28 226.917C1669.48 226.917 1642.08 254.326 1642.08 288.13C1642.08 321.934 1669.48 349.343 1703.28 349.343C1737.09 349.343 1764.49 321.934 1764.49 288.13C1764.49 254.326 1737.09 226.917 1703.28 226.917Z" fill="currentcolor"></path></svg>
+    </a>
+
+    <!-- <main class="min-w-fit flex text-center justify-center "> -->
+        
+        <div id="HomeNav" class="Home_Nav h-12 w-96 bg-[#ffffff] border border-gray-200 shadow-[0_4px_6px_rgba(0,0,0,0.15)]  rounded-full flex items-center ml-32">
+
+
+
+<a href="/" id="homesTab-lg" class="relative inline-block w-16 h-16 text-center">
+    
+    <!-- Idle icon (image instead of video) -->
+    <img 
+      id="houseIdle-lg"
+      class="w-16 h-16"
+      src="https://a0.muscache.com/im/pictures/airbnb-platform-assets/AirbnbPlatformAssets-search-bar-icons/original/a32adab1-f9df-47e1-a411-bdff91b579c3.png?im_w=240"
+      alt="Home icon"
+    />
+
+    <video 
+      id="houseActive-lg"
+      class="w-16 h-16 hidden"
+      playsinline
+      preload="auto"
+      muted
+    >
+      <source src="https://a0.muscache.com/videos/search-bar-icons/webm/house-selected.webm" type="video/webm">
+      <source src="https://a0.muscache.com/videos/search-bar-icons/hevc/house-selected.mov" type="video/mp4; codecs='hvc1'">
+    </video>
+    <!-- <span class="text-gray-700 text-xs">Homes</span> -->
+</a>
+
+            
+
+            <!-- <a href="/" class="border-r border-gray-300 p-1">Home</a> -->
+            <a href="/listings" class="border-r border-gray-300 pl-2 p-1">All Listings</a>
+            <a href="/host/user" class=" pl-4">Hosted Home</a>
+            <span class="mag_Glass cursor-pointer p-2 ml-16 w-10 h-10 bg-[#ff385c] text-white rounded-full"><i class="top_glass fa-solid fa-magnifying-glass"></i></span>
+        </div>
+    <!-- </main> -->
+    <div class="cont flex gap-5 items-center ">
+            <a href="/host">Become a host</a>
+              <a href="/users/profile">
+                    <img class="w-10 rounded-full object-cover" src="<%- (user && user.avatar) ? user.avatar : '/images/User.png' %>" alt="">
+             
+                    
+              </a>
+            <span class="bars flex justify-center h-8 w-8 text-center items-center bg-[#ebebeb] p-5 rounded-full cursor-pointer"><i class="fa-solid fa-bars"></i></span>
+    </div>
+
+
+
+
+
+<div class="search_con animate__animated animate__zoomInDown bg-white z-40 w-full h-28 p-5 hidden mt-80 justify-center gap-5 fixed left-0 -top-60 items-center flex-wrap">
+<form action="/searched" method="get" class="flex justify-center items-center w-full">
+      <input type="text" name="q" class="search_input bg-gray-200 relative p-3 w-[50%] h-14 outline-none rounded-full" placeholder="Search destinations">
+
+    <button class="search_btn bg-[#dc0f62] flex items-center gap-2 absolute w-24 rounded-full p-3 h-11 right-[26%] text-white">
+      <i class="fa-solid fa-magnifying-glass text-white"></i> 
+      <span class="text-white">Search</span>
+    </button>
+</form>
+    <%- include("BigSearched.ejs") %>
+</div>
+
+</nav>
+
+
+
+<nav class="hidden md:flex lg:hidden justify-between p-5 bg-[#fbfbfb] shadow-md pr-11 fixed top-0 left-0 z-10 w-full ">
+      <a href="/">
+        <svg width="44" height="44" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-label="Airbnb logo">
+            <path d="M12.001 16.709c-1.013-1.271-1.609-2.386-1.808-3.34-.197-.769-.12-1.385.218-1.848.357-.532.89-.791 1.589-.791s1.231.259 1.589.796c.335.458.419 1.075.215 1.848-.218.974-.813 2.087-1.808 3.341l.005-.006zm7.196.855c-.14.934-.775 1.708-1.65 2.085-1.687.734-3.359-.437-4.789-2.026 2.365-2.961 2.803-5.268 1.787-6.758-.596-.855-1.449-1.271-2.544-1.271-2.206 0-3.419 1.867-2.942 4.034.276 1.173 1.013 2.506 2.186 3.996-.735.813-1.432 1.391-2.047 1.748-.478.258-.934.418-1.37.456-2.008.299-3.582-1.647-2.867-3.656.1-.259.297-.734.634-1.471l.019-.039c1.097-2.382 2.43-5.088 3.961-8.09l.039-.1.435-.836c.338-.616.477-.892 1.014-1.231.258-.157.576-.235.934-.235.715 0 1.271.418 1.511.753.118.18.259.419.436.716l.419.815.06.119c1.53 3.001 2.863 5.702 3.955 8.089l.02.019.401.915.237.573c.183.459.221.915.16 1.393l.001.002zm.913-1.791c-.139-.438-.378-.953-.675-1.569v-.022a262.99 262.99 0 0 0-3.976-8.128l-.084-.121C14.486 4.109 13.849 3.014 12 3.014c-1.827 0-2.604 1.27-3.397 2.922l-.061.119c-1.251 2.426-2.564 5.128-3.975 8.13v.039l-.418.914c-.158.378-.237.575-.259.636C2.878 18.556 4.964 21 7.489 21c.021 0 .099 0 .198-.021h.278c1.313-.159 2.664-.993 4.035-2.485 1.371 1.49 2.725 2.326 4.033 2.485h.279c.1.021.18.021.2.021 2.525.002 4.61-2.444 3.598-5.227z" fill="#FF5A5F"/>
+        </svg>
+
+      </a>
+    <main class="flex text-center justify-center">
+        <div class="Home_Nav w-96 bg-[#ffffff] border border-gray-200 shadow-[0_4px_6px_rgba(0,0,0,0.15)] rounded-full flex items-center">
+
+    <a href="/" id="homesTab-md" class="relative inline-block text-center">
+    
+   
+    <img 
+      id="houseIdle-md"
+      class="h-12"
+      src="https://a0.muscache.com/im/pictures/airbnb-platform-assets/AirbnbPlatformAssets-search-bar-icons/original/a32adab1-f9df-47e1-a411-bdff91b579c3.png?im_w=240"
+      alt="Home icon"
+    />
+
+ 
+    <video 
+      id="houseActive-md"
+      class="h-12 hidden"
+      playsinline
+      preload="auto"
+      muted
+    >
+      <source src="https://a0.muscache.com/videos/search-bar-icons/webm/house-selected.webm" type="video/webm">
+      <source src="https://a0.muscache.com/videos/search-bar-icons/hevc/house-selected.mov" type="video/mp4; codecs='hvc1'">
+    </video>
+    <!-- <span class="text-gray-700 text-xs">Homes</span> -->
+</a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            <!-- <img class="h-12" src="https://a0.muscache.com/im/pictures/airbnb-platform-assets/AirbnbPlatformAssets-search-bar-icons/original/4aae4ed7-5939-4e76-b100-e69440ebeae4.png?im_w=240" alt=""> -->
+            <a href="/" class="border-r border-gray-300 p-1">Home</a>
+            <a href="/listings" class="border-r border-gray-300 pl-2 p-1">All Listings</a>
+            <a href="/host/user" class=" pl-4">Hosted Home</a>
+            <span class="mag_Glass cursor-pointer p-2 ml-8 w-10 h-10 bg-[#ff385c] text-white rounded-full"><i class="top_glass fa-solid fa-magnifying-glass"></i></span>
+        </div>
+    </main>
+        <div class="cont flex gap-4 items-center ">
+              <a href="/users/profile">
+                  <img class="w-10 rounded-full object-cover" src="<%- (user && user.avatar) ? user.avatar : '/images/User.png' %>" alt="">
+              </a>
+            <span class="bars flex justify-center h-8 w-8 text-center items-center bg-[#ebebeb] p-5 rounded-full cursor-pointer"><i class="fa-solid fa-bars"></i></span>
+        </div>
+
+
+
+
+    
+<div class="search_con hidden animate__animated animate__zoomInDown bg-white z-40 w-full h-28 p-5 mt-80 justify-center gap-10 fixed left-0 -top-60 items-center flex-wrap">
+<form action="/searched" method="get" class="flex justify-center items-center w-full">
+      <input type="text" class="search_input relative p-3 w-[100%] h-14 rounded-full bg-gray-200 border border-gray-300 outline-none" name="q" placeholder="Search destinations">
+
+    <button type="submit" class="search_btn bg-[#dc0f62] flex gap-2 items-center absolute w-24 rounded-full p-2 h-11 right-7 text-white "><i class="fa-solid fa-magnifying-glass"></i><span class="text-white">Search</span></button>
+</form>
+
+   
+      
+    <%- include("BigSearched.ejs") %>
+    
+
+</div>
+        
+</nav>  
+
+
+
+
+
+
+
+<nav class="shadow-2xl pt-14 bg-white md:hidden xl:hidden flex flex-col items-center justify-center fixed top-0 left-0 right-0 z-10">
+        <div class="n flex justify-center text-center p-3">
+            <div id="search_card" class="w-72 bg-[#ffffff] border border-gray-200 shadow-[0_4px_4px_rgba(0,0,0,0.15)] rounded-full flex items-center p-4 text-center justify-center fixed top-4 cursor-pointer">
+                <h2><i class="fa-solid fa-magnifying-glass"></i> Start your search</h2>
+            </div>
+        </div>
+
+<div id="img_box"  class="<%= (PageType === 'login' || PageType === 'signup' || PageType === 'host' || PageType === 'edit') ? 'hidden': ''; %> <%= url === '/host' ? 'hidden': '' ; %> cons flex top-16 left-0 items-center justify-center text-center w-full gap-6 bg-[#fff] mt-[1px] transition-all duration-300 opacity-100 translate-y-0 z-50">
+
+<a href="/" id="homesTab-sm" class="relative inline-block w-16 h-16 text-center">
+    
+    <img 
+      id="houseIdle-sm"
+      class="w-16 h-16"
+      src="https://a0.muscache.com/im/pictures/airbnb-platform-assets/AirbnbPlatformAssets-search-bar-icons/original/a32adab1-f9df-47e1-a411-bdff91b579c3.png?im_w=240"
+      alt="Home icon"
+    />
+
+    <video 
+      id="houseActive-sm"
+      class="w-16 h-16 hidden"
+      playsinline
+      preload="auto"
+      muted
+    >
+      <source src="https://a0.muscache.com/videos/search-bar-icons/webm/house-selected.webm" type="video/webm">
+      <source src="https://a0.muscache.com/videos/search-bar-icons/hevc/house-selected.mov" type="video/mp4; codecs='hvc1'">
+    </video>
+    <p></p>
+ 
+</a>
+
+
+<a href="/listings" id="balloonWrapper" class="relative inline-block cursor-pointer">
+
+  <img 
+    id="balloonIdle"
+    class="w-16 h-16"
+    src="https://a0.muscache.com/im/pictures/airbnb-platform-assets/AirbnbPlatformAssets-search-bar-icons/original/e47ab655-027b-4679-b2e6-df1c99a5c33d.png?im_w=240"
+    alt="Balloon icon"
+  />
+
+  <video 
+    id="balloonActive"
+    class="w-16 h-16 hidden" 
+    playsinline 
+    preload="auto"
+    muted>
+      <source src="https://a0.muscache.com/videos/search-bar-icons/webm/balloon-selected.webm" type="video/webm">
+      <source src="https://a0.muscache.com/videos/search-bar-icons/hevc/balloon-selected.mov" type="video/mp4; codecs='hvc1'">
+  </video>
+  <p></p>
+</a>
+
+
+
+<a href="/host/user" id="servicesTab" class="inline-flex flex-col items-center cursor-pointer" >
+    
+    <img id="servicesIdle" src="https://a0.muscache.com/im/pictures/airbnb-platform-assets/AirbnbPlatformAssets-search-bar-icons/original/3d67e9a9-520a-49ee-b439-7b3a75ea814d.png?im_w=240" class="w-16 h-16" />
+
+    
+    <video id="servicesActive" class="w-16 h-16 hidden" playsinline muted>
+      <source src="https://a0.muscache.com/videos/search-bar-icons/webm/consierge-selected.webm" type="video/webm">
+      <source src="https://a0.muscache.com/videos/search-bar-icons/hevc/consierge-selected.mov" type="video/mp4; codecs='hvc1'">
+    </video>
+    <p></p>
+   
+  </a>
+</div>
+
+
+
+<div id="navbar" class="text flex gap-9 bg-white shadow-bottom w-full text-center justify-center top-14">
+  <a href="/" class="text-gray-700 text-xs pb-1 border-b-2 border-transparent hover:border-black data-[active=true]:border-black  ml-5">Homes</a>
+  <a href="/listings" class="text-gray-700 text-xs pb-1 border-b-2 border-transparent hover:border-black data-[active=true]:border-black">All Listings</a>
+  <a href="/host/user" class="text-gray-700 text-xs pb-1 border-b-2 border-transparent hover:border-black data-[active=true]:border-black">Hosted Home</a>
+</div>
+
+
+
+<%- include("Search.ejs") %>
+</nav>
+    
+<div id="options" class=" fixed bg-[#fff] p-4 border-2 w-44 h-60 -mt-11 rounded-lg hidden top-28 md:left-[68%] xl:left-[83%] flex-col gap-6 z-10">
+    <a class="" id="heart" href="/favorites"><i class="fa-regular fa-heart"></i> Wishlists </a>
+    <a href="/host" class="leading-tight">Become a host <br>
+      <small class="text-gray-500 flex">It's easy to start hosting and earn extra income        <img src="/images/home-office_18942387.png" class="h-8 w-8 " alt="home"></small>
+    </a>
+    
+    <hr class="w-36 h-[1px] bg-gray-400 border-0">
+    <% if(!user){ %>
+    <div class="flex gap-4 ">
+      <a href="/login" >Login </a> or <a href="/signup">sign up</a>
+    </div>
+    <% } else{ %>
+      <a href="/logout">Logout</a>
+    <% }%>
+</div>
+
+<script src="<%= (PageType === 'host' || PageType === 'edit') ? '/js/second.js' : '/js/script.js'%>" ></script>
+<script>
+    
+const BigSearch = document.querySelectorAll(".search_con");
+const icon_click = document.querySelectorAll(".mag_Glass");
+
+icon_click.forEach(icon => {
+  icon.addEventListener("click", (e) => {
+    e.preventDefault();
+
+    const i_click = document.querySelectorAll(".top_glass").forEach(i_Tag => {
+    if(i_Tag.classList.contains("fa-magnifying-glass")){
+      i_Tag.classList.remove("fa-magnifying-glass");
+      i_Tag.classList.add("fa-xmark");
+    } else {
+      i_Tag.classList.remove("fa-xmark");
+      i_Tag.classList.add("fa-magnifying-glass");
+    }
+    })
+    
+    BigSearch.forEach(search => {
+      search.classList.toggle("hidden");
+      icon.classList.toggle("hidden");
+      search.classList.toggle("flex");
+    })
+
+    });
+
+
+})
+
+
+
+
+</script>
+</body>

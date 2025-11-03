@@ -1,0 +1,53 @@
+<%- include("./header.ejs") %>
+<body>
+    <div class="main block md:hidden lg:hidden xl:hidden ">
+        <nav class="flex justify-between bg-slate-100 w-[100%] p-5 items-center shadow-xl z-50">
+            
+            <% if(PageType === "detail") { %>
+                <a href="#" onclick="goBack(event)"><i class="fa-solid fa-arrow-left"></i></a>
+            <% } else{ %>
+                <a href="/"><i class="fa-solid fa-arrow-left"></i></a>
+            <% } %>
+            
+            <div class="icon flex gap-5 ">
+                <i class="fa-solid fa-arrow-up-from-bracket cursor-pointer"></i>
+            
+            </div>
+        </nav>
+    </div>
+
+
+
+    <script>
+
+const shareIcon = document.querySelectorAll(".fa-arrow-up-from-bracket");
+
+shareIcon.forEach(btn => {
+    btn.addEventListener('click', async () => {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            text: "Check this page out!",
+            url: window.location.href
+          });
+          console.log("Shared successfully");
+        } catch (err) {
+          console.log("Share failed:", err);
+        }
+      } else {
+        alert("Sharing not supported on this browser");
+      }
+    });
+})
+
+
+  function goBack(event) {
+    event.preventDefault();
+    window.history.back();
+  }
+
+    </script>
+</body>
+</html>
+

@@ -1,0 +1,163 @@
+<%- include("partials/header.ejs") %>
+<%- include("partials/nav.ejs", { result: typeof result !== 'undefined' ? result : [] }) %>
+
+<body>
+ 
+    <main class="text-center mt-24 lg:mt-24 md:mt-24 xl:mt-28 w-full flex flex-col justify-center items-center">
+     <div class="text-left  justify-start items-start w-8/12 mt-4 mb-4 hidden">
+           <h1 class="text-3xl">Add Your Place</h1>
+     </div>   
+        <form action="/host" method="post" class="w-full flex flex-col text-start p-4 justify-center items-center" enctype="multipart/form-data">
+            <div class="flex flex-col w-full lg:w-8/12 md:w-8/12">
+                <label for="title">Title</label>
+
+                <input required type="text" placeholder="Give your place catchy title" name="title" class="border-2 p-1 rounded-lg"> 
+            </div>
+            
+            <br>
+            
+            <div class="flex flex-col w-full lg:w-8/12 md:w-8/12">
+                <label class="" for="description">Description</label>
+                <textarea required rows="5" class="border-2 p-1 rounded-lg" name="description" placeholder="Share details about your place"></textarea>
+                
+                
+            </div>
+            <br>
+
+
+            
+            
+            <h2 class="text-start float-start xl:-ml-[57%] -ml-[48%] font-semibold">What you provide</h2>
+                <div class="w-full p-11 flex justify-center xl:-ml-[30%]">
+  <div class="flex justify-start xl:gap-44 md:gap-28 gap-20">
+    
+    <!-- LEFT COLUMN -->
+    <div class="flex flex-col gap-5">
+      <span>Kitchen <i class="fa-solid fa-kitchen-set"></i> 
+        <input type="checkbox" name="facilities[kitchen]" value="true"> 
+      </span>
+
+      <span>Wifi <i class="fa-solid fa-wifi"></i> 
+        <input type="checkbox" name="facilities[wifi]" value="true"> 
+      </span>
+
+      <span>TV <i class="fa-solid fa-tv"></i>  
+        <input type="checkbox" name="facilities[tv]" value="true"> 
+      </span>
+
+      <span>Lift <i class="fa-solid fa-elevator"></i>  
+        <input type="checkbox" name="facilities[lift]" value="true"> 
+      </span>
+
+      <span>Pool <i class="fa-solid fa-person-swimming"></i>  
+        <input type="checkbox" name="facilities[pool]" value="true"> 
+      </span>
+
+      <span>Free parking <i class="fa-solid fa-car"></i>  
+        <input type="checkbox" name="facilities[parking]" value="true"> 
+      </span>
+
+      <span class="flex items-center gap-2">
+        Air conditioner 
+        <img class="h-5" src="https://cdn-icons-png.flaticon.com/128/2502/2502273.png" alt="">  
+        <input type="checkbox" name="facilities[Ac]" value="true"> 
+      </span>
+
+      <span class="flex items-center gap-2">
+        Balcony 
+        <img class="h-5" src="https://cdn-icons-png.flaticon.com/128/4817/4817955.png" alt="">  
+        <input type="checkbox" name="facilities[balcony]" value="true"> 
+      </span>
+
+      <span>Gym <i class="fa-solid fa-dumbbell"></i> 
+        <input type="checkbox" name="facilities[gym]" value="true">
+      </span>
+    </div>
+
+    <!-- RIGHT COLUMN -->
+    <div class="bath flex flex-col justify-start text-start items-start gap-5">
+      <span>Bathroom</span>
+
+      <span class="flex items-center justify-center gap-2">
+        Hair Dryer 
+        <img class="h-4" src="https://cloud.githubusercontent.com/assets/27586528/25067198/cc201a2c-2276-11e7-86c8-0b5f23f792af.png" alt=""> 
+        <input type="checkbox" name="facilities[hairDryer]" value="true">
+      </span>
+
+      <span class="flex gap-1">
+        Cleaning products 
+        <img class="h-7" src="https://cdn-icons-png.flaticon.com/128/2553/2553628.png" alt=""> 
+        <input type="checkbox" name="facilities[cleaningProduct]" value="true">
+      </span>
+
+      <span class="flex">
+        Conditioner 
+        <img class="h-6" src="https://cdn-icons-png.flaticon.com/128/8962/8962061.png" alt=""> 
+        <input type="checkbox" name="facilities[conditioner]" value="true">
+      </span>
+
+      <span class="flex gap-2">
+        Body soap 
+        <img class="h-6" src="https://cdn-icons-png.flaticon.com/128/11385/11385475.png" alt=""> 
+        <input type="checkbox" name="facilities[bodySoap]" value="true">
+      </span>
+
+      <span>
+        Outdoor shower <i class="fa-solid fa-shower"></i> 
+        <input type="checkbox" name="facilities[outdoorShower]" value="true">
+      </span>
+
+      <span class="flex">
+        Hot water 
+        <img class="h-6" src="https://cdn-icons-png.flaticon.com/128/3684/3684018.png" alt=""> 
+        <input type="checkbox" name="facilities[hotWater]" value="true">
+      </span>
+
+      <span class="flex">
+        Shower gel 
+        <img class="h-6" src="https://cdn-icons-png.flaticon.com/128/3664/3664212.png" alt=""> 
+        <input type="checkbox" name="facilities[showerGel]" value="true">
+      </span>
+    </div>
+
+  </div>
+</div>
+
+            <br>
+            <div class="flex flex-col w-full lg:w-8/12 md:w-8/12">
+                <label class="" for="description">Image link</label>
+                <input type="file" required rows="5" class="border-2 p-1 rounded-lg" name="image" placeholder="Paste your link here" />
+            </div>
+            <br>
+            <div class="flex gap-5 w-full flex-col lg:flex-row md:flex-row lg:w-8/12 md:w-8/12">
+                <div class="inner w-full lg:w-08/12 md:w-08/12 flex flex-col">
+                    <label for="">Price</label>
+                  <div class="icon flex">
+                      <span class="bg-gray-400 w-10 text-center p-1 rounded-l-lg">$</span>
+                      <input required type="number" class="border-2 p-1 rounded-r-lg w-full" type="text" placeholder="1000"
+                      name="price">
+                  </div>
+                </div>
+                <div class="inner w-full lg:w-9/12 md:w-9/12 flex flex-col">
+                    <label for="">Country</label>
+                    <input required class="border-2 p-1 rounded-lg" type="text" placeholder="Usa" name="country">
+                </div>
+            </div>
+            <br>
+            <div class="inner w-full lg:w-8/12 md:w-8/12 flex flex-col">
+                <label for="">Location</label>
+                <input required class="border-2 p-1 rounded-lg" type="text" placeholder="Washington Dc" name="location">
+            </div>
+           <div class=" w-full lg:w-8/12 md:w-8/12 flex justify-start mt-5">
+             <button type="submit" class=" p-2 bg-red-500 text-white rounded-lg items-start text-left">Add In Listing</button>
+           </div>
+        </form>
+        
+    </main>
+            
+
+        <%-include("partials/footer.ejs")%>
+
+</body>
+
+</html>

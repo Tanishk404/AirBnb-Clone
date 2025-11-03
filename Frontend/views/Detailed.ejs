@@ -1,0 +1,408 @@
+<%- include("partials/header.ejs") %>
+
+<script>
+    const MapToken = "<%= MapToken %>";
+    const coordinates =  JSON.parse('<%- JSON.stringify(coordinates) %>');
+
+
+</script>
+<style>
+    .scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+#map{
+    width: 100%;
+    height: 500px;
+}
+
+
+#map2{
+    width: 100%;
+    height: 500px;
+}
+
+#map3{
+    width: 100%;
+}
+
+
+/* default: show only first 3 items */
+.facility-collapsed .facility-item:nth-child(n+6) {
+  display: none;
+}
+
+/* optional: smooth height transition when toggling (if you prefer) */
+#facilityList {
+  transition: max-height 240ms ease;
+  overflow: hidden;
+}
+
+/* If you want nice spacing / look */
+.facility-item { line-height: 1.4; }
+
+
+
+
+.marker {
+        background-image: url('https://docs.mapbox.com/mapbox-gl-js/assets/coffee-cup-marker.svg');
+        background-size: contain;
+        background-position-x: 50%;
+        background-repeat: no-repeat;
+        border-radius: 50%;
+        cursor: pointer;
+        transition-property: width, height;
+        transition-duration: 0.1s;
+        transition-timing-function: linear;
+        /* Define Marker Animation */
+        animation:
+            pop-in 0.3s ease-out forwards,
+            wobble 1.5s ease-in-out 0.3s forwards;
+        transform-origin: bottom center;
+}
+</style>
+
+<%
+const facilityIcons = {
+  kitchen: '<span><i class="fa-solid fa-kitchen-set"></i> Kitchen</span>',
+  wifi: '<span><i class="fa-solid fa-wifi"></i> Wifi</span>',
+  tv: '<span><i class="fa-solid fa-tv"></i> TV</span>',
+  lift: '<span><i class="fa-solid fa-elevator"></i> Lift</span>',
+  pool: '<span><i class="fa-solid fa-person-swimming"></i> Pool</span>',
+  parking: '<span><i class="fa-solid fa-car"></i> Free parking</span>',
+  Ac: '<span><img class="h-5 inline" src="https://cdn-icons-png.flaticon.com/128/2502/2502273.png" alt=""> Air Conditioner</span>',
+  balcony: '<span><img class="h-5 inline" src="https://cdn-icons-png.flaticon.com/128/4817/4817955.png" alt=""> Balcony</span>',
+  gym: '<span><i class="fa-solid fa-dumbbell"></i> Gym</span>',
+  hairDryer: '<span><img class="h-4 inline" src="https://cloud.githubusercontent.com/assets/27586528/25067198/cc201a2c-2276-11e7-86c8-0b5f23f792af.png" alt=""> Hair Dryer</span>',
+  cleaningProduct: '<span><img class="h-7 inline" src="https://cdn-icons-png.flaticon.com/128/2553/2553628.png" alt=""> Cleaning products</span>',
+  conditioner: '<span><img class="h-6 inline" src="https://cdn-icons-png.flaticon.com/128/8962/8962061.png" alt=""> Conditioner</span>',
+  bodySoap: '<span><img class="h-6 inline" src="https://cdn-icons-png.flaticon.com/128/11385/11385475.png" alt=""> Body soap</span>',
+  outdoorShower: '<span><i class="fa-solid fa-shower"></i> Outdoor shower</span>',
+  hotWater: '<span><img class="h-6 inline" src="https://cdn-icons-png.flaticon.com/128/3684/3684018.png" alt=""> Hot water</span>',
+  showerGel: '<span><img class="h-6 inline" src="https://cdn-icons-png.flaticon.com/128/3664/3664212.png" alt=""> Shower gel</span>'
+};
+%>
+
+
+<body>
+    <div class="naav hidden md:block lg:block xl:block w-full ">
+        <%- include("partials/nav.ejs") %>
+    </div>
+
+    <%- include("partials/dnav.ejs") %>
+    
+    <% if(success && success.length > 0) { %>
+        <div class="main mb-32">
+                <div class="flash_msg flex justify-center z-50 absolute w-full p-2">
+                    <div class="xl:mt-24 md:mt-24 lg:mt-24 flex items-center gap-3 bg-emerald-500 text-white p-4 w-96 shadow-lg shadow-emerald-300/40 rounded-xl animate__animated animate__fadeInDown">
+                   <p><%= success %></p>
+                </div>
+            </div>
+        <% } %>
+        <% result.forEach(data => { %>
+            
+ 
+        <div class="card items-center mt-32 flex flex-col gap-7 w-full">
+
+                <!-- For Mobile Title -->
+                <div class=" block md:hidden absolute top-80 mt-5 bg-white h-72 w-full z-10 rounded-t-3xl text-center"> 
+              
+                    <h1 class=" text-2xl font-semibold mt-5"><%= data.title %></h1>
+                    <div class="text flex gap-5 justify-center mt-5 items-center">
+                    <p class="underline mb-2">$<%= data.price %> per night</p>
+                  <small><%= data.location %></small>
+                  <small><%= data.country %></small>
+                    </div>
+                    <p class="text-start mt-5 ml-5"><i class="fa-solid fa-star-half-stroke   text-yellow-400"></i>4.98</span></small></p>
+                    <p class="font-semibold text-gray-500 mt-5 p-5"><%= data.description %></p>
+
+                    <hr class="m-6" >
+
+                    <div class="flex gap-4 items-center p-6">
+                        <img class="w-10 h-10 rounded-full" src="<%= (data.owneruser && data.owneruser.avatar) ? data.owneruser.avatar: '/images/User.png' %>" alt="">
+
+                  
+                        <p class="font-semibold"><span>Hosted by </span><%= data.owneruser.username %></p>
+                    </div>
+
+                    <hr class="m-6 ">
+
+                 <% if(user && data.owneruser && data.owneruser._id.toString() === user._id.toString()) { %>                    
+                    <div class="w-full flex justify-center mt-11">
+                        <div class="flex gap-10 xl:w-[40%] md:w-[80%] relative ">
+                        <a href="/edit/<%= data._id.toString() %>" class="bg-red-500 text-white p-2 rounded-lg">Edit</a>
+                        <form action="/del/<%= data._id.toString() %>?_method=DELETE" method="post">
+                            <button type="submit" class="bg-black text-white p-2 rounded-lg">Delete</button>
+                        </form>
+                        </div>
+                    </div>
+                         <% } %>
+
+                         
+                         
+                        </div>
+               
+
+
+                <div class="head text-start justify-center w-full md:w-[37rem] lg:w-[37rem] xl:w-[37rem] hidden md:block">
+                    <h1 class=" text-2xl font-semibold"><%= data.title %></h1>
+                </div>
+                <div class="img-con rounded-2xl relative">
+                    <img 
+                    class=" md:h-[400px] xl:h-[400px] lg:h-[400px] md:w-[600px] lg:w-[600px] xl:w-[600px] h-80 object-cover w-96  md:rounded-2xl -mt-32 md:mt-0" 
+                    src="<%= data.image.url%>"
+                    alt="">
+                </div>
+                <div class="text hidden md:flex gap-5 flex-col w-full md:w-[75%] xl:w-[40%]">
+                
+
+             
+                    <p class="font-semibold"><%= data.description %></p>
+                    <p>$<%= data.price %> per night</p>
+                    <p><%= data.location %></p>
+                    <p><%= data.country %></p>
+                    
+
+                    <hr class="">
+                    <div class="flex gap-4 items-center p-6 -ml-6">
+                        <img class="w-10 h-10 rounded-full" src="<%= (data.owneruser && data.owneruser.avatar) ? data.owneruser.avatar : '/images/User.png' %>" alt="">
+                        <p class="font-semibold"><span>Hosted by </span><%= data.owneruser.username %></p>
+                    </div>
+                </div>
+
+
+        </div>
+         <% if(user && data.owneruser && data.owneruser._id.toString() === user._id.toString()) { %>
+
+        <div class="w-full flex justify-center mt-11">
+            <div class="flex gap-10 xl:w-[40%] md:w-[80%] relative md:ml-7 xl:ml-0">
+                <a href="/edit/<%= data._id.toString() %>" class="bg-red-500 text-white p-2 rounded-lg">Edit</a>
+        
+                <form action="/del/<%= data._id.toString() %>?_method=DELETE" method="post">
+                    <button type="submit" class="bg-black text-white p-2 rounded-lg">Delete</button>
+                </form>
+            </div>
+        </div>
+        <% } %>
+        
+        <div class="h-full">
+          <div class="hidden justify-center items-center flex-col text-center xl:flex md:flex lg:flex">
+            <% const facilitiesCount2 = Object.values(data.facilities || {}).filter(v => v).length; %>
+            <% if(facilitiesCount2 > 0){ %>
+              <hr class="p-5 mt-5" style="">
+
+      <div class="grid xl:grid-cols-2 xl:justify-center xl:items-center md:w-full md:items-start md:text-left pl-20 xl:pl-64 p-5">
+        <h2 class="font-semibold text-lg">What this place offers</h2>
+      </div>
+
+      <div id="facilityListDesktop"
+           class="facility-collapsed grid xl:grid-cols-2 xl:justify-center xl:items-center md:w-full md:items-start md:text-left pl-20 xl:pl-64 p-5">
+        <% for (let [key, label] of Object.entries(facilityIcons)) { %>
+          <% if(data.facilities[key]){ %>
+            <p class="facility-item p-2 text-lg"><%- label %> </p>
+          <% } %>
+        <% } %>
+      </div>
+      <% const facilitiesCount = Object.values(data.facilities || {}).filter(v => v).length; %>
+
+      <% if(facilitiesCount > 5){ %>
+        <% console.log("Show") %>
+      <% } %>
+
+      <% if(facilitiesCount > 5){ %>
+              <div class="p-4 w-full">
+        <button id="toggleBtnDesktop"
+                class="bg-gray-100 shadow-lg hover:bg-slate-200 p-2 font-semibold rounded-lg w-96">
+          Show all
+        </button>
+      </div>
+      <% } %>
+
+    <% } else{ %>
+    <% } %>
+  </div>
+</div>
+
+
+                
+
+    <div class="xl:hidden md:hidden lg:hidden flex flex-col items-center mt-96 w-full">
+          <% const facilitiesCount = Object.values(data.facilities || {}).filter(v => v).length; %>
+  <% if (facilitiesCount > 0) { %>
+    <div class="w-full pl-4 xl:pl-64">
+      <h2 class="font-semibold text-lg mb-2">What this place offers</h2>
+
+      <div id="facilityList" class="flex flex-col w-full facility-collapsed">
+        <% for (let [key, label] of Object.entries(facilityIcons)) { %>
+          <% if (data.facilities[key]) { %>
+          
+            <div class="facility-item p-2 text-lg ">
+              <%- label %>
+            </div>
+          <% } %>
+        <% } %>
+      </div>
+
+    <div id="carg" class="carg absolute overflow-y-scroll top-0 mt-6 left-0 z-10 bg-[#FFFFFF] hidden pb-6 shadow-top w-full h-[100%] rounded-t-[30px] p-4" style="margin-top: 20px;">
+                 <a href="#" id="back" class="fixed bg-[#ffffff] w-full rounded-t-3xl left-0 p-3" style="margin-top: -16px;"><i class="fa-solid fa-arrow-left"></i></a>
+        
+       <h1 class="text-2xl font-semibold mb-7" style="margin-top: 50px;">What this place offers</h1>
+       <div>
+          <% for (let [key, label] of Object.entries(facilityIcons)) { %>
+        <% if (data.facilities[key]) { %>
+        
+          <div class="facility-item p-2 text-lg">
+            <p class="border-b border-gray-300 mb-7"><%- label %>  </p>
+          </div>
+        <% } %>
+      <% } %>
+       </div>
+    </div>
+
+      <% const facilitiesCount = Object.values(data.facilities || {}).filter(v => v).length; %>
+
+      <% if(facilitiesCount > 5){ %>
+        <div class="p-4 w-full">
+        <button id="toggleFacilities" aria-expanded="false"
+          class="bg-gray-100 shadow-lg hover:bg-slate-200 p-2 w-full font-semibold rounded-lg">
+          Show all
+        </button>
+      </div>
+      <% } %>
+    </div>
+
+
+
+  <% } %>
+  
+</div>
+         
+
+    <div class="lg:hidden md:hidden xl:hidden justify-center items-center w-full justify-items-center flex flex-col p-6 z-30 mt-[210px]">
+        <h1 class="text-left text-2xl font-semibold -ml-32 mb-6">Where you'll be</h1>
+        <div id="map3" class="w-full h-96 rounded-xl"></div>
+    </div>
+    <% if(data.reviews.length > 0 ){ %>
+        <hr class="m-6">
+    <%} %>
+
+<div class="ALL_Review 
+            flex p-[10px] overflow-x-auto scrollbar-hide gap-4 px-4 md:mt-11 lg:mt-11 xl:mt-11
+            md:grid md:gap-24 md:overflow-visible
+            lg:grid lg:gap-24
+            xl:grid  <%= data.reviews.length > 0 ?'xl:grid-cols-2' : 'xl:grid-cols-1' %>  <%= data.reviews.length > 0 ? 'xl:ps-44 xl:pe-44 mt-44'  : 'xl:p-0' %> xl:gap-24 xl:overflow-hidden
+             " >
+
+  <% data.reviews.forEach(review => { %>
+    <div class="all_Review flex-shrink-0 w-72 md:w-auto xl:w-full <%= data.reviews.length > 0 ? '' : 'xl:ml-[200px]' %> flex flex-col bg-white p-4 gap-2 rounded-md shadow-md z-10 md:z-0 xl:z-0 lg:z-0">
+      
+      <div class="flex gap-2 items-center">
+        <img src="<%- (review.owneruser && review.owneruser.avatar) ? review.owneruser.avatar : '/images/User.png'; %>" class="h-10 rounded-full" alt="user img">
+
+
+        <p><%= (review.owneruser && review.owneruser.username) ? review.owneruser.username: 'John'  %></p>
+      </div>
+
+      <div class="div flex">
+        
+          <% for(let i = 1; i <= review.ratings; i++){ %>
+            <p class="text-sm text-gray-700 flex items-center mb-1">
+                <span style="color:gold;">&#9733;</span>
+                
+            </p>
+            <% } %>
+            <% if(review.ratings === 0) { %>
+                <span style="color:lightgray;">&#9733;</span>
+                <span style="color:lightgray;">&#9733;</span>
+                <span style="color:lightgray;">&#9733;</span>
+                <span style="color:lightgray;">&#9733;</span>
+                <span style="color:lightgray;">&#9733;</span>
+            <% } %>
+      </div>
+
+     
+
+        <p class="review-text line-clamp-3"><%= review.comment %></p>
+        <% if (review.comment.split(" ").length > 30) { %>
+            <button class="clamp-btn">Show more</button>
+        <% } %>
+  
+
+        <% if(user && review.owneruser && review.owneruser._id.toString() === user._id.toString()) { %>
+        <form action="/view/<%= data._id.toString() %>/review/del/<%= review._id.toString() %>?_method=DELETE" method="post" class="btu flex gap-4 mt-4">
+            <button type="submit" class="border px-2 py-1 rounded text-center hover:bg-black hover:text-white">Delete</button>
+        </form>
+        <% } %>
+
+    </div>
+  <% }) %>
+
+</div>
+
+
+<hr class="m-6">
+
+    <div class="xl:flex justify-center items-center w-full justify-items-center hidden" style="padding-left: 200px; padding-right: 200px;">
+        <div id="map" class="w-full h-full rounded-xl"></div>
+    </div>
+
+<div class="lg:flex md:flex xl:hidden justify-center items-center w-full justify-items-center hidden p-10">
+        <div id="map2" class="w-full h-full rounded-xl"></div>
+</div>
+
+
+
+<hr class="m-6">
+            
+        <% if(user){ %>
+            <form action="/listings/review/<%= data.id %>" method="post">
+            <!-- <span class="text-yellow-500 text-4xl">&#9733;</span> -->
+            <div class="review flex justify-center flex-col w-full items-center gap-10 mt-32">
+                        
+            <fieldset class="starability-grow lg:mr-72 md:mr-72">
+            <legend>Rating</legend>
+            <input type="radio" id="first-rate0" name="ratings" value="0" checked/>
+            <input type="radio" id="first-rate1" name="ratings" value="1" />
+            <label for="first-rate1" title="Terrible">1 star</label>
+            <input type="radio" id="first-rate2" name="ratings" value="2" />
+            <label for="first-rate2" title="Not good">2 stars</label>
+            <input type="radio" id="first-rate3" name="ratings" value="3" />
+            <label for="first-rate3" title="Average">3 stars</label>
+            <input type="radio" id="first-rate4" name="ratings" value="4" />
+            <label for="first-rate4" title="Very good">4 stars</label>
+            <input type="radio" id="first-rate5" name="ratings" value="5" />
+            <label for="first-rate5" title="Amazing">5 stars</label>
+            </fieldset>
+
+
+                
+                <textarea required name="comment" placeholder="write your review here" class="border border-gray-500 p-1 rounded-xl 96 lg:w-auto md:w-auto xl:w-auto w-[90%]" cols="80" rows="6"></textarea>
+                <button class="p-2 border border-black hover:bg-black hover:text-white rounded-xl">Submit</button>
+            </div>
+        </form>
+        <% } %>
+    
+
+<% }) %>
+
+    </div>
+
+
+
+
+
+
+        <div class="relative bottom-0 left-0 w-full">
+            <%-include("partials/footer.ejs")%>
+        </div>
+
+
+<script src="/js/map.js"></script>
+<script src="/js/detail.js"></script>
+
+</body>
+</html>

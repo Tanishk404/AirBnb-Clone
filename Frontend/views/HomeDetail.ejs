@@ -1,0 +1,51 @@
+<%- include("partials/header.ejs") %>
+
+<body>
+    <div class="naav lg:block md:block hidden xl:block w-full ">
+        <%- include("partials/nav.ejs") %>
+    </div>
+    <%- include("partials/dnav.ejs") %>
+
+    
+    <div class="main mb-32">
+        <% result.forEach(data => { %>
+           <% console.log(data.title); %>
+        <div class="card items-center mt-32 flex flex-col gap-7 w-full">
+                <!-- For Mobile Title -->
+                <div class=" block md:hidden absolute top-80 mt-5 bg-white h-72 w-full z-10 rounded-t-3xl text-center"> 
+                    <h1 class=" text-2xl font-semibold mt-5"><%= data.title %></h1>
+                    <div class="text flex gap-5 justify-center mt-5 items-center">
+                                   <p class="underline mb-2">$<%= data.price %> per night</p>
+                  <small><%= data.location %></small>
+                  <small><%= data.country %></small>
+                    </div>
+                    <p class="text-start mt-5 ml-5"><i class="fa-solid fa-star-half-stroke   text-yellow-400"></i>4.98</span></small></p>
+                    <p class="font-semibold text-gray-500 mt-5"><%= data.description %></p>
+
+                </div>
+
+                <div class="head text-start justify-center w-full md:w-[37rem] lg:w-[37rem] xl:w-[37rem] hidden md:block">
+                    <h1 class=" text-2xl font-semibold"><%= data.title %></h1>
+                </div>
+                <div class="img-con object-contain rounded-2xl relative">
+                    <img 
+                    class=" md:h-[400px] xl:h-[400px] lg:h-[400px] md:w-[600px] lg:w-[600px] xl:w-[600px] object-cover h-80 w-96 md:rounded-2xl -mt-32 md:mt-0" 
+                    src="<%= data.image.url %>" 
+                    alt="">
+                </div>
+                <div class="text hidden md:flex gap-5 flex-col w-full md:w-[75%] xl:w-[40%]">
+                    <p class="font-semibold"><%= data.description %></p>
+                    <p>$<%= data.price %> per night</p>
+                    <p><%= data.location %></p>
+                    <p><%= data.country %></p>
+                    <p class=""><i class="fa-solid fa-star-half-stroke   text-yellow-400"></i>4.98</span></small></p>
+                </div>
+        </div>
+        <% }) %>
+    </div>
+
+
+
+        <%-include("partials/footer.ejs")%>
+</body>
+</html>

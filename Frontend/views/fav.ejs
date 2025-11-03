@@ -1,0 +1,104 @@
+<%- include("partials/header.ejs") %>
+
+
+    <nav class="hidden lg:block md:block">
+        <%- include("partials/nav.ejs") %>
+    </nav>
+    
+    <%- include("partials/dnav.ejs") %>
+    
+
+
+
+
+
+ 
+
+  <% if(result.length > 0){ %>
+
+<h1 class="text-4xl font-medium ml-3 xl:ml-11 w-52 lg:ml-7 md:ml-8 lg:mt-36 md:mt-36 
+           text-gray-800 relative cursor-default group">
+  Favorite
+</h1>
+
+
+
+  <% } else { %>
+    <!-- Empty State -->
+    <div class="flex flex-col items-center gap-4 mt-20 px-4 md:mt-36 lg:mt-28">
+      <i class="fa-solid fa-heart-broken text-6xl text-red-400 animate-pulse"></i>
+      <h1 class="text-3xl font-semibold text-gray-700">You haven’t added any favorites yet</h1>
+      <p class="text-gray-500 text-center max-w-md">Browse listings and tap the heart icon to add them to your favorites. Your saved homes will appear here.</p>
+      <a href="/listings" class="mt-4 bg-red-500 text-white px-6 py-3 rounded-xl shadow-md hover:bg-red-600 transition-colors duration-300">
+        Browse Listings
+      </a>
+    </div>
+  <% } %>
+
+</div>
+
+ 
+ 
+    <div class="con lg:grid lg:grid-cols-3 lg:justify-items-center md:grid md:grid-cols-2 md:justify-items-center xl:grid xl:grid-cols-4 xl:justify-items-center sm:grid sm:grid-cols-2 xs:grid xs:grid-cols-2">
+        <% result.forEach(data => { %>
+        
+        <div class="card p-5 mb-11 relative ">
+            <div class="icons absolute left-0 flex w-full gap-32 lg:gap-11 md:gap-28 xl:gap-24 sm:gap-24 items-center xs:gap-7 justify-center p-2">
+                <a href="/view/<%=data._id.toString()%>" class="text-black bg-gray-200 w-32 h-6 p-0 text-center  rounded-2xl font-medium text-sm">Guest favoriate</a>
+                    <button class="heart-btn" data-id="<%=data.originalId ? data.originalId._id.toString(): data._id.toString() %>">
+                        <svg class="heart-icon m-1 " viewBox="0 0 32 32" width="24" height="24" fill="<%= user && fav.includes(data.originalId._id.toString()) ? 'red' : 'rgba(0,0,0,0.5)' %>" stroke="white" stroke-width="2">
+                            <path d="M16 28.667C23.167 23.782 30.333 17.783 30.333 10.558c0-1.85-.699-3.698-2.099-5.109-1.4-1.41-3.233-2.116-5.068-2.116-1.834 0-3.668.706-5.067 2.116L16 7.566l-2.099-2.117c-1.399-1.41-3.233-2.116-5.068-2.116-1.834 0-3.668.706-5.067 2.116C2.267 6.86 1.567 8.709 1.567 10.558c0 7.224 7.167 13.224 14.433 18.109z"/>
+                        </svg>
+                    </button>
+            </div>
+                
+        
+            <div class="div w-full">
+                <a href="/view/<%= data.originalId._id.toString() %>">
+                <img class="object-cover h-60 w-full xs:w-60 xs-h-60 lg:w-72 lg:h-72 md:h-80 md:w-80 block rounded-xl sm:w-72 sm:h-72" src="<%= data.originalId ? data.originalId.image?.url : '/path/to/placeholder.jpg' %>" 
+                alt="">
+
+                </a>
+                <h1>Private room in Mount Rainier</h1>
+                <p>Cool Cape Cod Room 222</p>
+                <p>1 double bed</p>
+            </div>
+        </div>
+        <% }) %>
+
+
+
+    </div>
+
+
+    <%- include("partials/lowerNav.ejs") %>
+
+
+    <script>
+        const heart_btn = document.querySelectorAll(".heart-btn").forEach(btn => {
+            btn.addEventListener("click" , (e) => {
+        
+                const id =  btn.dataset.id;
+                console.log(id)
+                fetch(`/favorites/${id}`, {method: "post"}).then((res) => {
+                    const data = res.json().then((resul) => {
+
+                    
+                    const heart = btn.querySelector(".heart-icon");
+
+                    if (resul.action === "removed") {
+                        heart.style.fill = "rgba(0,0,0,0.5)";
+                    } else {
+                        heart.style.fill = "red";
+                    }
+                
+                    }).catch((err) => {
+                        console.log("res error in frontend");
+                    });
+                }).catch((err) => {
+                    console.log("Error in frontend fav remove", err);
+                })
+            })
+        })
+    </script>
+

@@ -1,0 +1,93 @@
+<%- include('partials/header.ejs') %>
+<body>
+    <% if(msg && msg.length > 0) { %>
+        <div class="flash_msg can flex justify-center p-4 absolute z-50 w-full">
+            <div class="xl:mt-24 md:mt-24 lg:mt-24 mt-44 flex items-center gap-3 bg-emerald-500 text-white p-4 w-96 shadow-lg shadow-emerald-300/40 rounded-xl animate__animated animate__fadeInDown">
+                <p><%= msg %></p>
+            </div>
+        </div>
+        <%}%>
+    <% if(lgn && lgn.length > 0) { %>
+        <div class="flash_msg can flex justify-center p-4 absolute z-50 w-full">
+            <div class="xl:mt-24 md:mt-24 lg:mt-24 mt-44 flex items-center gap-3 bg-emerald-500 text-white p-4 w-96 shadow-lg shadow-emerald-300/40 rounded-xl animate__animated animate__fadeInDown">
+                <p><%= lgn %></p>
+            </div>
+        </div>
+        <%}%>
+    
+    <%- include('partials/nav.ejs') %>
+    <h1 class="text-xl mt-11 ml-4 font-semibold relative top-36 md:top-16 lg:top-20 lg:ml-16 xl:ml-14 xl:top-20">All Listings<i class="fa-solid fa-chevron-right text-sm "></i></h1>
+
+    
+    <div class="main grid xs:grid-cols-2 sm:grid-cols-3 xl:grid-cols-6 lg:grid-cols-4 md:grid-cols-4 grid-cols-2 w-full lg:p-10  text-center items-center relative top-36 md:top-16 lg:top-6 xl:top-11 ">
+      
+        <% result.forEach(data => { %>
+        
+        <div class="card w-full h-full md:p-5  xl:p-5 p-4 relative text-left">
+            <% if(user){ %>
+            <div class="icons flex absolute items-center justify-center text-center w-full left-0 gap-4 xl:-left-3">
+                <a href="/view/<%=data._id.toString()%>" class="bg-gray-300 rounded-2xl p-1 text-xs font-bold">Guest Favourite</a>
+                
+                <button class="fav-btn" data-id="<%= data._id.toString() %>">
+               
+                <svg class="heart-i m-1 hover:scale-125" viewBox="0 0 32 32" width="24" height="24" fill="<%= user && fav.includes(data._id.toString()) ? 'red' : 'rgba(0,0,0,0.5)' %>" stroke="white" stroke-width="2">
+                        <path d="M16 28.667C23.167 23.782 30.333 17.783 30.333 10.558c0-1.85-.699-3.698-2.099-5.109-1.4-1.41-3.233-2.116-5.068-2.116-1.834 0-3.668.706-5.067 2.116L16 7.566l-2.099-2.117c-1.399-1.41-3.233-2.116-5.068-2.116-1.834 0-3.668.706-5.067 2.116C2.267 6.86 1.567 8.709 1.567 10.558c0 7.224 7.167 13.224 14.433 18.109z"/>
+                </svg>
+                </button>
+            </div>
+        <% } %>
+            <a class="flex" href="/view/<%=data._id %>">
+                <img class="rounded-2xl w-44 h-36 md:h-44  lg:h-44  xl:h-44 object-cover" src="<%= data.image.url %>" alt="">
+            </a>
+
+            <p class="text-sm"><%= data.location %></p>
+            <small class="flex text-gray-600">$<%= data.price %> per night <span><i class="fa-solid fa-star-half-stroke text-yellow-400"></i><%= (Math.random() * (5 - 1) + 1).toFixed(2) %></span></small>
+        </div>
+            
+       <% }) %>
+
+              <%- include("partials/lowerNav.ejs") %>
+
+</div>
+
+            <script>
+                document.querySelectorAll(".fav-btn").forEach(btn => {
+                btn.addEventListener("click", async (e) => {
+                 e.preventDefault();
+            const id = btn.dataset.id; 
+        const heart = btn.querySelector(".heart-i"); 
+
+        try {
+            const res = await fetch(`/favorites/${id}`, { method: "POST" });
+            const data = await res.json();
+
+            // this code for frontend heart color changing
+            if (data.action.toLowerCase() === "added") {
+                heart.style.fill = "red";
+            } else {
+                heart.style.fill = "rgba(0,0,0,0.5)";
+            }
+        } catch (err) {
+            console.log("Error toggling favorite", err);
+        }
+    });
+});
+
+
+
+        const msg = document.querySelector(".flash_msg");
+        setTimeout(function(){
+            msg.style.opacity = "0";
+            msg.style.transition = "opacity 0.5s ease"
+            setTimeout(() => {
+                msg.remove()
+            },500)
+        },2000)
+            </script>
+
+        
+       <div class="relative bottom-0 left-0 w-full">
+         <%-include("partials/footer.ejs")%>
+       </div>
+</body>
+</html>

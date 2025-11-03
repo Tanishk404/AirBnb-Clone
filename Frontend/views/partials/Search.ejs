@@ -1,0 +1,42 @@
+<div
+  id="search_page"
+  class="animate__animated animate__fadeInDownBig main lg:hidden md:hidden xl:hidden hidden p-3 w-full"
+>
+  <span
+    id="x_mark"
+    class="transform transition duration-300 hover:scale-125 z-50 w-10 text-center items-center p-2 absolute right-7 top-7 bg-white shadow-all-sides h-10 rounded-full cursor-pointer"
+  >
+    <i class="fa-solid fa-xmark"></i
+  ></span>
+  <div
+    class="card flex flex-col justify-center items-start gap-5 mt-1 bg-[rgb(255,255,255)] shadow-top h-auto p-4 z-10 mb-5 w-full rounded-xl"
+  >
+    <h1 class="text-2xl font-medium">Where?</h1>
+    <div class="icon relative">
+      <i class="fa-solid fa-magnifying-glass absolute mt-5 ml-4"></i>
+
+<form action="/searched" method="get">
+        <input
+        name="q"
+        type="text"
+        placeholder="Search your location"
+        class="search_input border-2 p-4 rounded-lg min-w-72 w-auto pl-11"
+      />
+    </div>
+    <small>Suggested destinations</small>
+    <div
+      class="card_2 scroll-m-0 flex gap-3 flex-col w-full overflow-y-scroll h-56"
+    >
+      <% result.forEach(data => { %>
+      <a href="/searched?q=<%= encodeURIComponent(data.location) %>"><%=data.location %></a>
+      <% }) %>
+    </div>
+  </div>
+
+  <div class="button w-full shadow-2xl">
+    <button class="search_btn bg-pink-700 p-2 w-44 text-white rounded-xl">
+      Search
+    </button>
+  </div>
+</form>
+</div>

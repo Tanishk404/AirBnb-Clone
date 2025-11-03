@@ -1,0 +1,171 @@
+<%- include("partials/header.ejs") %>
+<%- include("partials/nav.ejs", { result: typeof result !== 'undefined' ? result : [] }) %>
+<%= PageType %>
+
+
+<body>
+    <main class="text-center mt-24 lg:mt-24 md:mt-24 xl:mt-28 w-full flex flex-col justify-center items-center">
+     <div class="text-left justify-start items-start w-8/12 mt-4 mb-4 hidden">
+           <h1 class="text-3xl">Add Your Place</h1>
+     </div>
+        <% result.forEach(data => { %>
+          
+        
+        <form action="/listings/edit/<%=data._id.toString()%>?_method=PUT" method="post" class="w-full flex flex-col text-start p-4 justify-center items-center" enctype="multipart/form-data">
+            <div class="flex flex-col w-full lg:w-8/12 md:w-8/12">
+                <label for="title">Title</label>
+
+                <input required type="text" placeholder="Give your place catchy title" name="title" value="<%= data.title %>" class="border-2 p-1 rounded-lg"> 
+            </div>
+            
+            <br>
+            
+            <div class="flex flex-col w-full lg:w-8/12 md:w-8/12">
+                <label class="" for="description">Description</label>
+                <textarea required rows="5" class="border-2 p-1 rounded-lg" name="description" placeholder="Share details about your place"><%= data.description %></textarea>
+            </div>
+            <br>
+
+
+
+                    <h2 class="text-start float-start xl:-ml-[57%] -ml-[48%] font-semibold">What you provide</h2>
+<div class="w-full p-11 flex justify-center xl:-ml-[30%]">
+  <div class="flex justify-start xl:gap-44 md:gap-28 gap-20">
+
+    <!-- LEFT COLUMN -->
+    <div class="flex flex-col gap-5">
+      <span><i class="fa-solid fa-kitchen-set"></i> Kitchen
+        <input type="checkbox" name="facilities[kitchen]" value="true" 
+          <%= data.facilities && data.facilities.kitchen ? 'checked' : '' %>>
+      </span>
+
+      <span><i class="fa-solid fa-wifi"></i> Wifi
+        <input type="checkbox" name="facilities[wifi]" value="true" 
+          <%= data.facilities && data.facilities.wifi ? 'checked' : '' %>>
+      </span>
+
+      <span><i class="fa-solid fa-tv"></i> TV
+        <input type="checkbox" name="facilities[tv]" value="true" 
+          <%= data.facilities && data.facilities.tv ? 'checked' : '' %>>
+      </span>
+
+      <span><i class="fa-solid fa-elevator"></i> Lift
+        <input type="checkbox" name="facilities[lift]" value="true" 
+          <%= data.facilities && data.facilities.lift ? 'checked' : '' %>>
+      </span>
+
+      <span><i class="fa-solid fa-person-swimming"></i> Pool
+        <input type="checkbox" name="facilities[pool]" value="true" 
+          <%= data.facilities && data.facilities.pool ? 'checked' : '' %>>
+      </span>
+
+      <span><i class="fa-solid fa-car"></i> Free parking
+        <input type="checkbox" name="facilities[parking]" value="true" 
+          <%= data.facilities && data.facilities.parking ? 'checked' : '' %>>
+      </span>
+
+      <span class="flex items-center gap-2">
+        <img class="h-5" src="https://cdn-icons-png.flaticon.com/128/2502/2502273.png" alt=""> Air Conditioner
+        <input type="checkbox" name="facilities[Ac]" value="true" 
+          <%= data.facilities && data.facilities.Ac ? 'checked' : '' %>>
+      </span>
+
+      <span class="flex items-center gap-2">
+        <img class="h-5" src="https://cdn-icons-png.flaticon.com/128/4817/4817955.png" alt=""> Balcony
+        <input type="checkbox" name="facilities[balcony]" value="true" 
+          <%= data.facilities && data.facilities.balcony ? 'checked' : '' %>>
+      </span>
+
+      <span><i class="fa-solid fa-dumbbell"></i> Gym
+        <input type="checkbox" name="facilities[gym]" value="true" 
+          <%= data.facilities && data.facilities.gym ? 'checked' : '' %>>
+      </span>
+    </div>
+
+    <!-- RIGHT COLUMN -->
+    <div class="bath flex flex-col justify-start text-start items-start gap-5">
+      <span>Bathroom</span>
+
+      <span class="flex items-center gap-2">
+        <img class="h-4" src="https://cloud.githubusercontent.com/assets/27586528/25067198/cc201a2c-2276-11e7-86c8-0b5f23f792af.png" alt=""> Hair Dryer
+        <input type="checkbox" name="facilities[hairDryer]" value="true" 
+          <%= data.facilities && data.facilities.hairDryer ? 'checked' : '' %>>
+      </span>
+
+      <span class="flex items-center gap-2">
+        <img class="h-7" src="https://cdn-icons-png.flaticon.com/128/2553/2553628.png" alt=""> Cleaning products
+        <input type="checkbox" name="facilities[cleaningProduct]" value="true" 
+          <%= data.facilities && data.facilities.cleaningProduct ? 'checked' : '' %>>
+      </span>
+
+      <span class="flex items-center gap-2">
+        <img class="h-6" src="https://cdn-icons-png.flaticon.com/128/8962/8962061.png" alt=""> Conditioner
+        <input type="checkbox" name="facilities[conditioner]" value="true" 
+          <%= data.facilities && data.facilities.conditioner ? 'checked' : '' %>>
+      </span>
+
+      <span class="flex items-center gap-2">
+        <img class="h-6" src="https://cdn-icons-png.flaticon.com/128/11385/11385475.png" alt=""> Body soap
+        <input type="checkbox" name="facilities[bodySoap]" value="true" 
+          <%= data.facilities && data.facilities.bodySoap ? 'checked' : '' %>>
+      </span>
+
+      <span><i class="fa-solid fa-shower"></i> Outdoor shower
+        <input type="checkbox" name="facilities[outdoorShower]" value="true" 
+          <%= data.facilities && data.facilities.outdoorShower ? 'checked' : '' %>>
+      </span>
+
+      <span class="flex items-center gap-2">
+        <img class="h-6" src="https://cdn-icons-png.flaticon.com/128/3684/3684018.png" alt=""> Hot water
+        <input type="checkbox" name="facilities[hotWater]" value="true" 
+          <%= data.facilities && data.facilities.hotWater ? 'checked' : '' %>>
+      </span>
+
+      <span class="flex items-center gap-2">
+        <img class="h-6" src="https://cdn-icons-png.flaticon.com/128/3664/3664212.png" alt=""> Shower gel
+        <input type="checkbox" name="facilities[showerGel]" value="true" 
+          <%= data.facilities && data.facilities.showerGel ? 'checked' : '' %>>
+      </span>
+    </div>
+  </div>
+</div>
+
+
+            <br>
+            <div class="flex flex-col w-full lg:w-8/12 md:w-8/12">
+                <label class="" for="description">Image link</label>
+                <input type="file" rows="5" class="border-2 p-1 rounded-lg" name="image" value="<%= data.image.url %>" placeholder="Paste your link here" />
+            </div>
+            <br>
+            <div class="flex gap-5 w-full flex-col lg:flex-row md:flex-row lg:w-8/12 md:w-8/12">
+                <div class="inner w-full lg:w-08/12 md:w-08/12 flex flex-col">
+                    <label for="">Price</label>
+                  <div class="icon flex">
+                      <span class="bg-gray-400 w-10 text-center p-1 rounded-l-lg">$</span>
+                      <input value="<%= data.price %>" required type="number" class="border-2 p-1 rounded-r-lg w-full" type="text" placeholder="1000"
+                      name="price">
+                  </div>
+                </div>
+                <div class="inner w-full lg:w-9/12 md:w-9/12 flex flex-col">
+                    <label for="">Country</label>
+                    <input value="<%= data.country %>" required class="border-2 p-1 rounded-lg" type="text" placeholder="Usa" name="country">
+                </div>
+            </div>
+            <br>
+            <div class="inner w-full lg:w-8/12 md:w-8/12 flex flex-col">
+                <label for="">Location</label>
+                <input required class="border-2 p-1 rounded-lg" value="<%= data.location %>" type="text" placeholder="Washington Dc" name="location">
+            </div>
+           <div class=" w-full lg:w-8/12 md:w-8/12 flex justify-start mt-5">
+             <button type="submit" class=" p-2 bg-red-500 text-white rounded-lg items-start text-left">Save Listing</button>
+           </div>
+        </form>
+        <% }) %>
+    </main>
+            
+
+        <%-include("partials/footer.ejs")%>
+
+</body>
+
+</html>

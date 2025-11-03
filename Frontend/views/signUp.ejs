@@ -1,0 +1,90 @@
+<%- include("partials/header.ejs") %>
+<%- include("partials/nav.ejs", { result: typeof result !== 'undefined' ? result : [] }) %>
+
+<style>
+
+.inpu_1:focus + .lab_1,
+.inpu_1:not(:placeholder-shown)+.lab_1{
+    top: -20px;
+    font-size: 12px;
+    position: absolute;
+    color: red;
+    transform: none;
+    transition: all ease 0.4s;
+
+}
+.inpu_2:focus + .lab_2,
+.inpu_2:not(:placeholder-shown)+.lab_2{
+    top: -20px;
+    font-size: 12px;
+    position: absolute;
+    color: red;
+    transform: none;
+    transition: all ease 0.4s;
+}
+
+</style>
+
+<div class="w-full justify-center justify-items-center items-center text-center mt-16">
+            <% if(Error && Error.length > 0) { %>
+        <div class="flash_msg can flex justify-center p-4 absolute z-50 w-full">
+            <div class="xl:mt-24 md:mt-24 lg:mt-24 mt-44 flex items-center gap-3 bg-red-500 text-white p-4 w-96 shadow-lg red-emerald-300/40 rounded-xl animate__animated animate__fadeInDown">
+                <p><%= Error %></p>
+            </div>
+        </div>
+        <%}%>
+
+        <% if(existFlash && existFlash.length > 0) { %>
+        <div class="flash_msg can flex justify-center p-4 absolute z-50 w-full">
+            <div class="xl:mt-24 md:mt-24 lg:mt-24 mt-44 flex items-center gap-3 bg-red-500 text-white p-4 w-96 shadow-lg red-emerald-300/40 rounded-xl animate__animated animate__fadeInDown">
+                <% console.log(existFlash ) %>
+                <p><%= existFlash[0] %></p>
+            </div>
+        </div>
+         <%}%>
+    <form action="/signup" method="post" class="flex w-[90%] md:w-[50%] xl:w-[28%]  p-5 flex-col h-[50%] mt-32 gap-6 shadow-all-sides rounded-lg" action="" method="">
+        <div class="relative flex w-full">
+            <input required name="username" class="inpu_1 w-full border rounded-lg p-3" placeholder=" ">
+            <label for="username" class="lab_1 absolute text-gray-500 top-3 left-4">UserName</label>
+        </div>
+        <div class="relative flex w-full">
+            <input required type="email" name="email" class="inpu_1 w-full border rounded-lg p-3" placeholder=" ">
+            <label for="email" class="lab_1 absolute text-gray-500 top-3 left-4">Email Id</label>
+        </div>
+        <div class="relative flex w-full">
+            <input required type="password" name="password" class="inpu_2 rounded-lg p-3 w-full top-3 left-4 border" placeholder=" ">
+            <label for="password" class="lab_2 absolute left-4 top-3 text-gray-500">Password</label>
+        </div>
+        <button class="p-2 w-full bg-red-500 text-white rounded-lg">Sign up</button>
+
+<div class="mt- flex flex-col items-center gap-3">
+    <p class="text-gray-500">or</p>
+
+    <a href="/auth/google"
+       class="flex items-center justify-center gap-2 border border-gray-400 p-2 w-[90%] md:w-[60%] rounded-lg hover:bg-gray-100 transition">
+        <img src="/images/g-logo.png"
+             alt="Google logo" class="w-5 h-5">
+        <span>Sign up with Google</span>
+    </a>
+</div>
+
+        <span>already have account <a href="/login" class="underline text-red-500">Login</a></span>
+        
+    </form>
+
+
+
+    <script>
+        const flash_msg = document.querySelectorAll(".flash_msg");
+        flash_msg.forEach(msg => {
+            setTimeout(function(){
+                msg.style.opacity = "0";
+                msg.style.transition = "opacity 0.5s ease"
+                setTimeout(() => {
+                    msg.remove()
+                },500)
+            },2000)
+        })
+    </script>
+    
+</div>

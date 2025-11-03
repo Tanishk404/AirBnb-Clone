@@ -1,0 +1,8 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+.show-pop {
+  @apply opacity-100 scale-100;
+}
