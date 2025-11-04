@@ -80,6 +80,13 @@ export const ViewDetailed = async (req, res) => {
             res.render("Detailed", { result: d, PageType: "detail", success, MapToken: process.env.Map_Token, coordinates: k.coordinates.coordinate, });
         }
       )
+      res.render("Detailed", {
+           result: d,
+           PageType: "detail",
+           success,
+           MapToken: process.env.Map_Token,
+           coordinates: [-86.49609, 34.316809],
+         });
     
   }).catch((err) => {
     console.log("Somthing went wrong in Detailed View", err.message);
