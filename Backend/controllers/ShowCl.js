@@ -44,11 +44,18 @@ export const ViewDetailed = async (req, res) => {
       const success = req.flash("edit_success")
 
       const BaseClient = new mbxClient({accessToken: process.env.Map_Token})
+        let previousPath = "/";
+        try {
+          const previousUrl = req.get("Referer");
+          if(previousUrl){
+            const pathname = new URL(previousUrl);
+            previousPath = pathname.pathname;
+          }
+        } catch (error) {
+          console.log("Previous URL error", error.message);
+        }
 
-       const previousUrl = req.get("Referer");
-       const pathname = new URL(previousUrl);
-
-       res.locals.PreviousUrl = pathname.pathname;
+       res.locals.PreviousUrl = previousPath;
 
       const geocodingService = new GeoCodingService(BaseClient);
 
@@ -61,22 +68,18 @@ export const ViewDetailed = async (req, res) => {
       })
       .send()
       .then(
-          response => {
+          (response) => {
             if(response){
-              const coordinate = response.body.features[0].geometry.coordinates;
-              if(typeof coordinate === "undefined"){
-                  k.coordinates.coordinate = [ -86.49609, 34.316809 ];
-              }else{
+              const coordinate = response.body.features[0]?.geometry?.coordinates || [-86.49609,
+                34.316809,];
+       
                 k.coordinates.coordinate = coordinate;
                 k.save();
-              }
-            }else{
-              return
             }
-        }
 
-    )
-      res.render("Detailed", { result: d, PageType: "detail", success, MapToken: process.env.Map_Token, coordinates: k.coordinates.coordinate, });
+            res.render("Detailed", { result: d, PageType: "detail", success, MapToken: process.env.Map_Token, coordinates: k.coordinates.coordinate, });
+        }
+      )
     
   }).catch((err) => {
     console.log("Somthing went wrong in Detailed View", err.message);
