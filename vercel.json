@@ -3,18 +3,30 @@
   "installCommand": "npm install",
   "builds": [
     {
+      "src": "Frontend/public/**",
+      "use": "@vercel/static"
+    },
+    {
       "src": "index.js",
       "use": "@vercel/node"
     }
   ],
   "routes": [
     {
-      "src": "/fa/(.*)",
-      "dest": "/node_modules/@fortawesome/fontawesome-free/$1"
+      "src": "/output.css",
+      "dest": "/Frontend/public/output.css"
     },
     {
-      "src": "/animate/(.*)",
-      "dest": "/node_modules/animate.css/$1"
+      "src": "/star.css",
+      "dest": "/Frontend/public/star.css"
+    },
+    {
+      "src": "/images/(.*)",
+      "dest": "/Frontend/public/images/$1"
+    },
+    {
+      "src": "/js/(.*)",
+      "dest": "/Frontend/public/js/$1"
     },
     {
       "src": "/(.*)",
