@@ -7,6 +7,14 @@
       "use": "@vercel/static"
     },
     {
+      "src": "node_modules/@fortawesome/fontawesome-free/**",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "node_modules/animate.css/**",
+      "use": "@vercel/static"
+    },
+    {
       "src": "index.js",
       "use": "@vercel/node"
     }
@@ -27,6 +35,14 @@
     {
       "src": "/js/(.*)",
       "dest": "/Frontend/public/js/$1"
+    },
+    {
+      "src": "/fa/(.*)",
+      "dest": "/node_modules/@fortawesome/fontawesome-free/$1"
+    },
+    {
+      "src": "/animate/(.*)",
+      "dest": "/node_modules/animate.css/$1"
     },
     {
       "src": "/(.*)",
