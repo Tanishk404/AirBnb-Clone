@@ -1,15 +1,24 @@
 {
   "version": 2,
+  "installCommand": "npm install",
   "builds": [
     {
-      "src": "Backend/index.js",
+      "src": "index.js",
       "use": "@vercel/node"
     }
   ],
   "routes": [
     {
+      "src": "/fa/(.*)",
+      "dest": "/node_modules/@fortawesome/fontawesome-free/$1"
+    },
+    {
+      "src": "/animate/(.*)",
+      "dest": "/node_modules/animate.css/$1"
+    },
+    {
       "src": "/(.*)",
-      "dest": "Backend/index.js"
+      "dest": "index.js"
     }
   ]
 }
